@@ -1,7 +1,7 @@
 import subprocess
 import sys
 from Bio.Align.Applications import MuscleCommandline
-from StringIO import StringIO
+from io import StringIO
 from Bio import AlignIO
 import json
 import argparse
