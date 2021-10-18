@@ -556,7 +556,12 @@ def write_file(master_dictionary, hum_access):
     the aligned sequences and conservation/variant symbols are the values.
     hum_access - the accession of the human gene
     '''
-    hum_key = master_dictionary.keys()[0]
+    #print(master_dictionary.keys())
+    for key in master_dictionary.keys():
+        if key.startswith(hum_access):
+            hum_key = key
+        else:
+            pass
     with open("new_align.txt", "w") as w:
         for i in range(0,len(master_dictionary[hum_key])):
             for gene in master_dictionary:
