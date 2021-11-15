@@ -1,0 +1,30 @@
+.header {
+    background-color: #F1F1F1;
+    text-align: center;
+    padding: 20px;
+  }
+
+body {
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+}
+  
+a:link {
+    color: #1a0dab;
+}
+  
+a:visited {
+    color: #660099;
+}
+  
+.header {
+    padding-bottom: 2rem;
+    border-bottom: .01rem solid #e5e5e5;
+    margin-bottom: 1rem;
+}
+
+.footer {
+    padding-top: 1.5rem;
+    color: #777;
+    border-top: .05rem solid #e5e5e5;
+}

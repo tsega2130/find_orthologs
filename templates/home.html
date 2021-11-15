@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>OrthoVar</title>
+    </head>
+    <link rel="stylesheet" href="reset.css">
+    <link rel="stylesheet" href="main.css">
+    <body>
+      <div class="header">
+        <h1>OrthoVar</h1>
+      </div>
+    <div class="container">
+      <main role="main">
+        <div class="intro row">
+          <div class="offset-md-1 col-md-10">
+            <p><center>OrthVar is a program which allows a user to align a human gene variant to conserved gene regions in orthologous sequences within model organisms. 
+            This allows us to construct the same mutations in the model organisms to further investigate the implications of the mutation.</center></p>
+            <p>Instructions</P>
+            <ul>
+              <li class="mb-1">Enter ...</li>
+
+            </ul>
+          </div>
+        </div>
+        
+        <form action = "" method = "POST" 
+              enctype = "multipart/form-data">
+        <p>Enter Human Fasta File </p> 
+
+        <div class="row mt-3">
+            <div class="form-group col-md-7">
+              <!-- action: where to send the file -->
+              
+              <input type = "file" name = "Human_Fasta_File" accept= ".fasta, .txt" />
+        </div>    
+
+        <p>Enter Orthologs Fasta File </p> 
+        <div class="row mt-3">
+            <div class="form-group col-md-7">
+              <input type = "file" name = "Orthologs_Fasta_File"  accept= ".fasta, .txt"/>
+              <input type = "submit"/>
+        </div>
+      </form>
+    </body>
+
+
+
+ <footer class="footer text-center">
+        <p>Please direct questions about OrthoVar to <a href="https://deborahthurtleschmidt.com/About_Me.html">Dr. Debbie Thurtle-Schmidt</a>.</p>
+        <p>To download the source code, <a href="https://github.com/tsega2130/find_orthologs.git">click here</a>.</p>
+        <p>Powered by <a href="https://www.ncbi.nlm.nih.gov/clinvar/">NCBI</a></p>
+
+</footer>
+</html>
