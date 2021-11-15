@@ -1,7 +1,7 @@
 import subprocess
 import sys
 from Bio.Align.Applications import MuscleCommandline
-from StringIO import StringIO
+from io import StringIO
 from Bio import AlignIO
 import json
 def cleanup_dict(clin_var_data_dict): #NK&NS
@@ -192,3 +192,4 @@ def main():
     parsed_file(clin_var_data_dict)
 if __name__ == '__main__':
     main()
+
