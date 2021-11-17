@@ -1,4 +1,4 @@
-import os 
+import os
 from flask import Flask, render_template, request, redirect, url_for
 from werkzeug.utils import secure_filename
 import subprocess #put in args orthovar needs
@@ -18,9 +18,6 @@ app.config["UPLOAD_EXTENSIONS"] = ['.txt', '.fasta']
 def entry():
     return render_template("home.html")
 
-
-#differnet route for human fasta?
-
 @app.route('/', methods=['POST'])
 #runs when browser sends POST request 
 def upload_file():
@@ -33,47 +30,46 @@ def upload_file():
 
     human_file_string = human_file_string.split("\n")
     ortho_file_string = ortho_file_string.split("\n")
-    print(human_file_string)
-    print(ortho_file_string)
+    #print(human_file_string)
+    #print(ortho_file_string)
+    print(type(ortho_file_string))
 
     hum_access = ''
     hum_access = human_file_string[0].split(" ")[0][1:]
     print(hum_access)
-
-    """ 
-    for line in human_file_string:
-        if line[0] == '>':
-            line = line.strip('>')
-            line = line.split(' ')
-            hum_access = hum_access + line[0] 
-    """
     
     if uploaded_file1.filename != '':
         uploaded_file1.save(uploaded_file1.filename)
     if uploaded_file2.filename != "":
         uploaded_file2.save(uploaded_file2.filename)
-    return render_template("home.html")
-    #return redirect(url_for('home.html')) 
+    
+    
+    #Is the issue test_orthovar or subprocess?
+    #Why is the passed variable uploaded_file.filename?
+    
+    #print(subprocess.run(f"python test_OrthoVar.py -O {uploaded_file2.filename} -H {uploaded_file1.filename}", shell=True, capture_output=True))
+    #print(subprocess.CompletedProcess(args=[f"python OrthoVar.py -O {uploaded_file2.filename} -H {uploaded_file1.filename}"]))
 
-""" 
-#align both human fasta with orthlogs fasta
-    with open("combined.fasta", "w") as output:
-        #read human fasta file
-        with open(human_file_string, "r") as f1:
-            line = f1.readline()
-            while line:
-                output.write(line)
-                line = f1.readline()
-        #read orthologs file
-        with open(filename2, "r") as f2:
-            output.write('\n')
-            line = f2.readline()
-            while line:
-                output.write(line)
-                line = f2.readline()
- 
-#use hum acess to go through parse_clin_var.json
-"""
+    #result = subprocess.run(["test_OrthoVar.py", "-c" "-O {uploaded_file2.filename} -H {uploaded_file1.filename}"])
+    #print(result)
+    
+    #subprocess.run(["test_OrthoVar.py", "-O {uploaded_file2.filename} -H {uploaded_file1.filename}"  ])
+    #print(subprocess.run(["cat", "data.txt"])) 
+    
+    #result = subprocess.run(["cat", "data.txt"], capture_output = True)
+    #print(result)
+    
+    #text captures it as a string 
+    result = subprocess.run(f"python test_OrthoVar.py -O {uploaded_file2.filename} -H {uploaded_file1.filename}", shell = True, text = True, capture_output = True)
+    print(result)
+    print("std.out:", result.stdout)
+   
+    #using shell =true has shell injection security implications
+    output = subprocess.run("cat 'data.txt'", shell = True, text = True, capture_output = True)
+    print(output)
+    print(output.stdout)
+    
+    return render_template("uploader.html")
 
-#subprocess.run(f"python OrthoVar.py -H {uploaded_file1.filename} -O {uploaded_file2.filename}", shell=True, capture_output=True)
 
+#check what type file is coming in as before passing into subprocess 
