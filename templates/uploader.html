@@ -1,4 +1,31 @@
 <!DOCTYPE html>
 <html>
-<p> Test </p>
+<head>
+<meta charset="utf-8"/>
+<title>OrthoVar</title>
+<link rel="icon" href="static/styles/images/OV-logos_transparent.png"/>
+<link rel="stylesheet" type="text/css" href="../static/styles/reset.css">
+<link rel="stylesheet" type="text/css" href="../static/styles/uploader.css">
+</head> 
+
+<body>
+
+<header class="header clearfix">
+  <h1 class="display-3 text-center"><a class = "text-dark" href="/"> <img src="../static/styles/images/OrthoVar-logos_transparent.png" width="600" height="600"> </a></h1>
+ </header>
+
+ <!-- Jinja templating renders variables into HTML --> 
+<p>  {{ output }} </p>   
+
+<!-- Want them to download the original file in what format -->
+<p> <a href="{{ download_file }}" download> Download output</a> </p>
+
+<footer class="footer">
+  <p>Please direct questions about OrthoVar to <a href="https://deborahthurtleschmidt.com/About_Me.html">Dr. Debbie Thurtle-Schmidt</a>.</p>
+  <p>To download the source code, <a href="https://github.com/tsega2130/find_orthologs.git">click here</a>.</p>
+  <p>Powered by <a href="https://www.ncbi.nlm.nih.gov/clinvar/">NCBI</a></p>
+</footer>
+
+</body>
+
 </html>
