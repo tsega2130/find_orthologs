@@ -5,6 +5,7 @@ from io import StringIO
 from Bio import AlignIO
 import json
 import argparse
+from tempfile import NamedTemporaryFile
 
 def parser_fxn(command_list):
     '''
@@ -25,7 +26,10 @@ def parser_fxn(command_list):
     arguments = vars(parser.parse_args())
     return arguments
 
-def combine_fasta(filename1, filename2): #DM
+tempfile = NamedTemporaryFile("w")
+alignedtemp = NamedTemporaryFile("w")
+
+def combine_fasta(filename1, filename2, tempfile): #DM
     '''
     This function combines two FASTA files into once
 
@@ -40,7 +44,7 @@ def combine_fasta(filename1, filename2): #DM
     Returns:
     combined.fasta - a new file with the combined sequences
     '''
-    with open("combined.fasta", "w") as output:
+    with open(tempfile, "w") as output:
         with open(filename1, "r") as f1:
             line = f1.readline()
             while line:
@@ -562,25 +566,24 @@ def write_file(master_dictionary, hum_access):
             hum_key = key
         else:
             pass
-    with open("new_align.txt", "w") as w:
-        for i in range(0,len(master_dictionary[hum_key])):
-            for gene in master_dictionary:
-                if gene.startswith("NM_"):
-                    w.write(gene + master_dictionary[gene][i] + "\n")
-                else:
-                    pass
-            w.write('Conservation        ' + master_dictionary['Conservation        '][i] + "\n")
-            w.write('Variant             ' + master_dictionary['Variant             '][i] + "\n" + "\n")
+    for i in range(0,len(master_dictionary[hum_key])):
+        for gene in master_dictionary:
+            if gene.startswith("NM_"):
+                print(gene + master_dictionary[gene][i] + "\n")
+            else:
+                pass
+        print('Conservation        ' + master_dictionary['Conservation        '][i] + "\n")
+        print('Variant             ' + master_dictionary['Variant             '][i] + "\n" + "\n")
 
-def main():
+def main():    
+    tempfile = NamedTemporaryFile("w")
+    alignedtemp = NamedTemporaryFile("w")
     command_line = parser_fxn(sys.argv)
-    combine_fasta(command_line['human'], command_line['orthologs'])
-    #Creates a new files where the ClustalW alignment will be written to
-    out_file = "aligned_combined.aln"
-    #Takes in the combined file of human and non-human sequences and aligns them
-    muscle_cline=MuscleCommandline(input="combined.fasta", out=out_file, clw=True)
+    combine_fasta(command_line['human'], command_line['orthologs'], tempfile.name)
+    out_file = alignedtemp.name
+    muscle_cline=MuscleCommandline(input=tempfile.name, out=out_file, clw=True)
     stdout, stderr = muscle_cline()
-    align=AlignIO.read(out_file, "clustal")
+    align = AlignIO.read(out_file, "clustal")
     hum_access = get_hum_access("human.fasta")
     clin_var_data_dict = import_variant_summary()
     file_list = read_in_file()

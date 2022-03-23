@@ -6,10 +6,6 @@ import subprocess #put in args orthovar needs
 
 app = Flask(__name__) 
 
- 
-#UPLOAD_FOLDER = 'Users\tsabera\Desktop\OrthoVar_Flask\UPLOAD_FOLDER'
-#app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-
 #size restriction to prevent
 app.config["MAX_CONTENT_LENGTH"] = 1024 * 1024
 app.config["UPLOAD_EXTENSIONS"] = ['.txt', '.fasta']
@@ -49,5 +45,3 @@ def upload_file():
     # render template with output
     return render_template("uploader.html", output=result.stdout)
 
-
-#check what type file is coming in as before passing into subprocess 
